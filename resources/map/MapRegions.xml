@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+    <mapregion>
+        <land/>
+        <ocean/>
+        <name>Hibernia</name>
+        <production>1</production>
+        <boundary>
+            <point x="0.0" y="0.0"/>
+            <point x="0.0" y="64.0"/>
+            <point x="60.0" y="80.0"/>
+            <point x="92.0" y="43.0"/>
+            <point x="118.0" y="47.0"/>
+            <point x="130.0" y="37.0"/>
+            <point x="135.0" y="0.0"/>
+        </boundary>
+    </mapregion>
+
+    <mapregion>
+        <land/>
+        <ocean/>
+        <name>Britannia</name>
+        <boundary>
+            <point x="60" y="80"/>
+            <point x="67" y="100"/>
+            <point x="181" y="80"/>
+            <point x="214" y="38"/>
+            <point x="226" y="0"/>
+            <point x="136" y="0"/>
+            <point x="131" y="38"/>
+            <point x="119" y="47"/>
+            <point x="93" y="44"/>
+        </boundary>
+    </mapregion>
+
+    <mapregion>
+        <ocean/>
+        <name>Atlantic</name>
+        <boundary>
+            <point x="0.0" y="64.0"/>
+            <point x="60.0" y="80.0"/>
+            <point x="65.0" y="98.0"/>
+            <point x="66.0" y="165.0"/>
+            <point x="119.0" y="194.0"/>
+            <point x="138.0" y="269.0"/>
+            <point x="116.0" y="280.0"/>
+            <point x="0.0" y="250.0"/>
+        </boundary>
+    </mapregion>
+
+    <mapregion>
+        <land/>
+        <ocean/>
+        <name>Northern Iberia</name>
+        <boundary>
+            <point x="0.0" y="369.0"/>
+            <point x="110.0" y="346.0"/>
+            <point x="123.0" y="332.0"/>
+            <point x="116.0" y="280.0"/>
+            <point x="0.0" y="250.0"/>
+        </boundary>
+    </mapregion>
+</map>
