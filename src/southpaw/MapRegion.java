@@ -5,20 +5,50 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.Vector;
 
 public class MapRegion {
+    double maxX, maxY, minX, minY;
     String name;
     Vector<Point2D> points;
 
     public MapRegion(String name) {
         this.name = name;
         points = new Vector<>();
+        maxX = Integer.MIN_VALUE;
+        maxY = Integer.MIN_VALUE;
+        minX = Integer.MAX_VALUE;
+        minY = Integer.MAX_VALUE;
+
     }
 
     void addPoint(float x, float y) {
+        if(x<minX) {
+            minX = x;
+        }
+
+        if(y<minY) {
+            minY = y;
+        }
+
+        if(x>maxX) {
+            maxX=x;
+        }
+
+        if(y>maxY) {
+            maxY=y;
+        }
+
         points.add(new Point2D(x,y));
     }
 
     boolean pointIsInside(double x, double y) {
-        return false;
+        if(x<minX || y<minY) {
+            return false;
+        }
+
+        if(x>maxX || y>maxY) {
+            return false;
+        }
+
+        return true;
     }
 
     void draw(GraphicsContext context) {

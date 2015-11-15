@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.Vector;
 
 public class Main extends Application {
     private Scene scene;
@@ -31,7 +32,7 @@ public class Main extends Application {
         GraphicsContext graphicsContext = mapCanvas.getGraphicsContext2D();
         graphicsContext.drawImage(image,0,0,1400,700);
 
-        mapCanvas.setOnMouseClicked(event -> System.out.println(event.getX() + ", " + event.getY()));
+        mapCanvas.setOnMouseClicked(event -> handleClick(event.getX(), event.getY()));
 
         System.out.println(image.getWidth());
         System.out.println(image.getHeight());
@@ -42,6 +43,17 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+    }
+
+    void handleClick(double x, double y) {
+        System.out.println(x + ", " + y);
+
+        Vector<MapRegion> insideRegions = mapRegions.getInside(x,y);
+
+        for (MapRegion region : insideRegions) {
+            System.out.println(region.name);
+        }
 
     }
 

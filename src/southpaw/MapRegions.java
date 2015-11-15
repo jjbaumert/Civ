@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.plaf.synth.Region;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -76,5 +77,17 @@ public class MapRegions {
         Document doc = getXMLDocument(mapFile);
 
         getMapRegions(doc);
+    }
+
+    Vector<MapRegion> getInside(double x, double y) {
+        Vector<MapRegion> returnRegions = new Vector<MapRegion>();
+
+        for(MapRegion region : regions) {
+            if(region.pointIsInside(x,y)) {
+                returnRegions.add(region);
+            }
+        }
+
+        return returnRegions;
     }
 }
