@@ -7,11 +7,11 @@ import java.util.Vector;
 public class MapRegion {
     double maxX, maxY, minX, minY;
     String name;
-    Vector<Point2D> points;
+    Vector<MapRegionLine> edges;
 
     public MapRegion(String name) {
         this.name = name;
-        points = new Vector<>();
+        edges = new Vector<>();
         maxX = Integer.MIN_VALUE;
         maxY = Integer.MIN_VALUE;
         minX = Integer.MAX_VALUE;
@@ -19,24 +19,21 @@ public class MapRegion {
 
     }
 
-    void addPoint(float x, float y) {
-        if(x<minX) {
-            minX = x;
-        }
+    public void addEdge(float x1, float y1, float x2, float y2) {
 
-        if(y<minY) {
-            minY = y;
-        }
+        if(x1<minX) minX = x1;
+        if(x2<minX) minX = x2;
 
-        if(x>maxX) {
-            maxX=x;
-        }
+        if(y1<minY) minY = y1;
+        if(y2<minY) minY = y2;
 
-        if(y>maxY) {
-            maxY=y;
-        }
+        if(x1>maxX) maxX=x1;
+        if(x2>maxX) maxX=x2;
 
-        points.add(new Point2D(x,y));
+        if(y1>maxY) maxY=y1;
+        if(y2>maxY) maxY=y2;
+
+        edges.add(new MapRegionLine(x1,y1,x2,y2));
     }
 
     boolean pointIsInside(double x, double y) {
@@ -52,16 +49,10 @@ public class MapRegion {
     }
 
     void draw(GraphicsContext context) {
-        for(int x=1;x<points.size();x++) {
-            Point2D pointFrom = points.get(x - 1);
-            Point2D pointTo = points.get(x);
+        for(int x=0;x<edges.size();x++) {
+            MapRegionLine mapRegionLine = edges.get(x);
 
-            context.strokeLine(pointFrom.x, pointFrom.y, pointTo.x, pointTo.y);
+            context.strokeLine(mapRegionLine.fromX, mapRegionLine.fromY, mapRegionLine.toX, mapRegionLine.toY);
         }
-
-        Point2D pointFrom = points.get(0);
-        Point2D pointTo = points.get(points.size()-1);
-
-        context.strokeLine(pointFrom.x, pointFrom.y, pointTo.x, pointTo.y);
     }
 }

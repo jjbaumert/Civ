@@ -1,13 +1,13 @@
 package southpaw;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.swing.plaf.synth.Region;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,6 +51,8 @@ public class MapRegions {
             MapRegion region = new MapRegion(name);
             regions.add(region);
 
+            Vector<Pair<Float,Float>> points = new Vector<Pair<Float,Float>>();
+
             for(int pointIndex=0; pointIndex<pointList.getLength(); pointIndex++) {
                 Node point = pointList.item(pointIndex);
                 Element pointElements = (Element) point;
@@ -58,7 +60,20 @@ public class MapRegions {
                 float x = Float.parseFloat(pointElements.getAttribute("x"));
                 float y = Float.parseFloat(pointElements.getAttribute("y"));
 
-                region.addPoint(x,y);
+                points.add(new Pair<>(x, y));
+            }
+
+            Pair<Float,Float> prevPoint = null;
+            for(Pair<Float,Float> point: points) {
+                if(prevPoint!=null) {
+                    region.addEdge(prevPoint.getKey(),prevPoint.getValue(),point.getKey(),point.getValue());
+                }
+                prevPoint = point;
+            }
+
+            if(prevPoint!=null) { // close out the polygon
+                Pair<Float,Float> point = points.get(0);
+                region.addEdge(prevPoint.getKey(), prevPoint.getValue(), point.getKey(), point.getValue());
             }
         }
     }
